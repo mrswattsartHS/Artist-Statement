@@ -3,33 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Artist Statment Generator and Organizer</title>
+  <title>Artist Statement Generator and Organizer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #333;
       overflow-x: hidden;
     }
     .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
     }
     .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
+      position: absolute; width: 4px; height: 4px;
       background: rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       animation: float 6s infinite ease-in-out;
@@ -47,34 +36,14 @@
       position: relative;
       z-index: 10;
     }
-    header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
     nav {
       background: rgba(255, 255, 255, 0.95);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 5px;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;
+      padding: 15px 20px; position: sticky; top: 0; z-index: 100;
     }
     nav a {
-      color: #333;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 12px 20px;
-      border-radius: 25px;
-      background: transparent;
-      cursor: pointer;
+      color: #333; text-decoration: none; font-weight: 600;
+      padding: 12px 20px; border-radius: 25px; background: transparent;
     }
     nav a.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -89,20 +58,16 @@
       z-index: 10;
     }
     section {
-      display: none;
       padding: 40px;
       max-width: 1000px;
       margin: auto;
-    }
-    section.active {
-      display: block;
     }
     form label {
       display: block;
       margin-bottom: 15px;
       font-weight: 600;
     }
-    form input, form textarea {
+    form textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -128,55 +93,58 @@
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div><section id="artiststatement">
-  <h2>Write Your Artist Statement</h2>
-  <p>Use this graphic organizer to plan and draft your artist statement. Your statement tells who you are as an artist, what your work expresses, and what influences your creative process.</p>
-  <form id="artistStatementForm">
-    <label>Paragraph I: Why do you create art? What values or goals guide your work?
-      <textarea rows="4" id="para1" placeholder="I create art because..."></textarea>
-    </label>
-    <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
-      <textarea rows="4" id="para2" placeholder="My artwork typically features..."></textarea>
-    </label>
-    <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
-      <textarea rows="4" id="para3" placeholder="My art is inspired by..."></textarea>
-    </label>
-    <label>Final Draft:
-      <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..."></textarea>
-    </label>
-    <div class="print-save-buttons">
-      <button type="button" onclick="printArtistStatement()">🖨️ Print Statement</button>
-      <button type="button" onclick="saveArtistStatementAsWord()">📄 Save as Word</button>
-    </div>
-  </form>
-</section>
-function printArtistStatement() {
-  const finalDraft = document.getElementById('finalDraft').value;
-  const win = window.open('', '_blank');
-  win.document.write(`
-    <html>
-      <head><title>Artist Statement</title></head>
-      <body>
-        <h2>Artist Statement</h2>
-        <p>${finalDraft.replace(/\n/g, '<br>')}</p>
-      </body>
-    </html>
-  `);
-  win.document.close();
-  win.print();
-}
+  <div class="particles" id="particles"></div>
 
-function saveArtistStatementAsWord() {
-  const text = document.getElementById('finalDraft').value;
-  const blob = new Blob([text], { type: 'application/msword' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'Artist_Statement.doc';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-    });
+  <section id="artiststatement">
+    <h2>Write Your Artist Statement</h2>
+    <p>Use this graphic organizer to plan and draft your artist statement. Your statement tells who you are as an artist, what your work expresses, and what influences your creative process.</p>
+    <form id="artistStatementForm">
+      <label>Paragraph I: Why do you create art? What values or goals guide your work?
+        <textarea rows="4" id="para1" placeholder="I create art because..."></textarea>
+      </label>
+      <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
+        <textarea rows="4" id="para2" placeholder="My artwork typically features..."></textarea>
+      </label>
+      <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
+        <textarea rows="4" id="para3" placeholder="My art is inspired by..."></textarea>
+      </label>
+      <label>Final Draft:
+        <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..."></textarea>
+      </label>
+      <div class="print-save-buttons">
+        <button type="button" onclick="printArtistStatement()">🖨️ Print Statement</button>
+        <button type="button" onclick="saveArtistStatementAsWord()">📄 Save as Word</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    function printArtistStatement() {
+      const finalDraft = document.getElementById('finalDraft').value;
+      const win = window.open('', '_blank');
+      win.document.write(`
+        <html>
+          <head><title>Artist Statement</title></head>
+          <body>
+            <h2>Artist Statement</h2>
+            <p>${finalDraft.replace(/\n/g, '<br>')}</p>
+          </body>
+        </html>
+      `);
+      win.document.close();
+      win.print();
+    }
+
+    function saveArtistStatementAsWord() {
+      const text = document.getElementById('finalDraft').value;
+      const blob = new Blob([text], { type: 'application/msword' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Artist_Statement.doc';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   </script>
 </body>
 </html>
