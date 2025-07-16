@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Artist Statement Generator and Organizer</title>
+  <title>Artist Statement Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -13,109 +14,158 @@
       color: #333;
       overflow-x: hidden;
     }
-    .particles {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 1;
-    }
-    .particle {
-      position: absolute; width: 4px; height: 4px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      animation: float 6s infinite ease-in-out;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
-    }
     header {
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(10px);
       color: white;
       padding: 40px 20px;
       text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-    nav {
-      background: rgba(255, 255, 255, 0.95);
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;
-      padding: 15px 20px; position: sticky; top: 0; z-index: 100;
-    }
-    nav a {
-      color: #333; text-decoration: none; font-weight: 600;
-      padding: 12px 20px; border-radius: 25px; background: transparent;
-    }
-    nav a.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-    }
-    .content-container {
-      background: rgba(255, 255, 255, 0.95);
-      margin: 40px 20px;
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
     }
     section {
-      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 20px;
+      margin: 30px auto;
+      border-radius: 20px;
       max-width: 1000px;
-      margin: auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-    form label {
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    label {
       display: block;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-weight: 600;
     }
-    form textarea {
+    textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
+      margin-top: 5px;
+      resize: vertical;
     }
     .print-save-buttons {
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      justify-content: center;
+      gap: 15px;
       flex-wrap: wrap;
+      margin-top: 20px;
     }
     .print-save-buttons button {
       background: linear-gradient(135deg, #00b894, #00a085);
       color: white;
       padding: 12px 20px;
       border: none;
-      border-radius: 20px;
+      border-radius: 25px;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
-      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .resources {
+      margin-top: 40px;
+    }
+    .resource-embed {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .resource-embed iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      display: block;
+    }
+    details summary {
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 30px;
+      font-size: 1.1rem;
+    }
+    .progress-container {
+      margin: 20px auto;
+      max-width: 800px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 25px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
 
-  <section id="artiststatement">
-    <h2>Write Your Artist Statement</h2>
-    <p>Use this graphic organizer to plan and draft your artist statement. Your statement tells who you are as an artist, what your work expresses, and what influences your creative process.<B>Additional resources are available at the bottom of the page to help you write your response.</B></p>
+  <header>
+    <h1><i class="fas fa-feather-alt"></i> Artist Statement Generator & Organizer</h1>
+    <p>Use this interactive guide to help express your voice and purpose as an artist.</p>
+  </header>
+
+  <section>
+    <h2><i class="fas fa-pencil-alt"></i> Start Writing</h2>
+    <p><strong>Use the prompts below to help organize your thoughts.</strong></p>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">0% complete</div>
+
     <form id="artistStatementForm">
       <label>Paragraph I: Why do you create art? What values or goals guide your work?
-        <textarea rows="4" id="para1" placeholder="I create art because..."></textarea>
+        <textarea rows="4" id="para1" placeholder="I create art because..." oninput="updateProgress()"></textarea>
       </label>
       <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
-        <textarea rows="4" id="para2" placeholder="My artwork typically features..."></textarea>
+        <textarea rows="4" id="para2" placeholder="My artwork typically features..." oninput="updateProgress()"></textarea>
       </label>
       <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
-        <textarea rows="4" id="para3" placeholder="My art is inspired by..."></textarea>
+        <textarea rows="4" id="para3" placeholder="My art is inspired by..." oninput="updateProgress()"></textarea>
       </label>
       <label>Final Draft:
-        <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..."></textarea>
+        <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..." oninput="updateProgress()"></textarea>
       </label>
+
       <div class="print-save-buttons">
-        <button type="button" onclick="printArtistStatement()">🖨️ Print Statement</button>
-        <button type="button" onclick="saveArtistStatementAsWord()">📄 Save as Word</button>
+        <button type="button" onclick="printArtistStatement()"><i class="fas fa-print"></i> Print Statement</button>
+        <button type="button" onclick="saveArtistStatementAsWord()"><i class="fas fa-file-word"></i> Save as Word</button>
       </div>
     </form>
+  </section>
+
+  <section class="resources">
+    <details open>
+      <summary><i class="fas fa-book-open"></i> Additional Resources</summary>
+      <div class="resource-embed">
+        <iframe src="https://drive.google.com/file/d/1BE0VgHEC7dZjcqm7m7chDGm2s7HdHxH3/preview" allowfullscreen></iframe>
+      </div>
+      <div class="resource-embed">
+        <iframe src="https://drive.google.com/file/d/1IYbljbwaxzQhNyYyarbR2s3PoYbYcrpu/preview" allowfullscreen></iframe>
+      </div>
+      <div class="resource-embed">
+        <iframe src="https://drive.google.com/file/d/1bZU7MXT2O22DhVNVrT2YtOTujC4U8JNx/preview?usp=embed_googleplus" allowfullscreen></iframe>
+      </div>
+    </details>
   </section>
 
   <script>
@@ -125,7 +175,7 @@
       win.document.write(`
         <html>
           <head><title>Artist Statement</title></head>
-          <body>
+          <body style="font-family: sans-serif; padding: 20px;">
             <h2>Artist Statement</h2>
             <p>${finalDraft.replace(/\n/g, '<br>')}</p>
           </body>
@@ -145,11 +195,23 @@
       link.click();
       document.body.removeChild(link);
     }
-  </script>
-  <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 75%;"><iframe src="https://drive.google.com/file/d/1BE0VgHEC7dZjcqm7m7chDGm2s7HdHxH3/preview" style="top: 0; left: 0; width: 50%; height: 50%; position: absolute; border: 0;" allowfullscreen></iframe></div>
 
-<iframe src="https://drive.google.com/file/d/1IYbljbwaxzQhNyYyarbR2s3PoYbYcrpu/preview" width="640" height="480" allow="autoplay"></iframe>
-  
-  <div style="left: 0; width: 50%; height: 0; position: relative; padding-bottom: 129.4118%;"><iframe src="https://drive.google.com/file/d/1bZU7MXT2O22DhVNVrT2YtOTujC4U8JNx/preview?usp=embed_googleplus" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div>
+    function updateProgress() {
+      const fields = [
+        document.getElementById('para1').value.trim(),
+        document.getElementById('para2').value.trim(),
+        document.getElementById('para3').value.trim(),
+        document.getElementById('finalDraft').value.trim()
+      ];
+      const filled = fields.filter(val => val.length > 0).length;
+      const percentage = Math.round((filled / fields.length) * 100);
+
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('progressText');
+      bar.style.width = percentage + '%';
+      text.textContent = percentage + '% complete';
+    }
+  </script>
+
 </body>
 </html>
