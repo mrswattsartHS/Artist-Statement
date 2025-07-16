@@ -114,6 +114,15 @@
       margin-top: 10px;
       font-weight: 600;
     }
+    .edit-note {
+      font-size: 0.95rem;
+      color: #444;
+      margin-top: 10px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-left: 5px solid #764ba2;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -134,14 +143,19 @@
 
     <form id="artistStatementForm">
       <label>Paragraph I: Why do you create art? What values or goals guide your work?
-        <textarea rows="4" id="para1" placeholder="I create art because..." oninput="updateProgress()"></textarea>
+        <textarea rows="4" id="para1" placeholder="I create art because..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
       </label>
       <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
-        <textarea rows="4" id="para2" placeholder="My artwork typically features..." oninput="updateProgress()"></textarea>
+        <textarea rows="4" id="para2" placeholder="My artwork typically features..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
       </label>
       <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
-        <textarea rows="4" id="para3" placeholder="My art is inspired by..." oninput="updateProgress()"></textarea>
+        <textarea rows="4" id="para3" placeholder="My art is inspired by..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
       </label>
+
+      <div class="edit-note" id="editNote">
+        ✏️ Now take a look at what you wrote and revise your final artist statement.
+      </div>
+
       <label>Final Draft:
         <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..." oninput="updateProgress()"></textarea>
       </label>
@@ -169,6 +183,45 @@
   </section>
 
   <script>
+    function updateProgress() {
+      const fields = [
+        document.getElementById('para1').value.trim(),
+        document.getElementById('para2').value.trim(),
+        document.getElementById('para3').value.trim(),
+        document.getElementById('finalDraft').value.trim()
+      ];
+      const filled = fields.filter(val => val.length > 0).length;
+      const percentage = Math.round((filled / fields.length) * 100);
+
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('progressText');
+      bar.style.width = percentage + '%';
+      text.textContent = percentage + '% complete';
+    }
+
+    function autoFillFinalDraft() {
+      const p1 = document.getElementById('para1').value.trim();
+      const p2 = document.getElementById('para2').value.trim();
+      const p3 = document.getElementById('para3').value.trim();
+      const finalBox = document.getElementById('finalDraft');
+      const editNote = document.getElementById('editNote');
+
+      let combined = "";
+      if (p1) combined += p1 + "\n\n";
+      if (p2) combined += p2 + "\n\n";
+      if (p3) combined += p3;
+
+      finalBox.value = combined;
+
+      if (p1 && p2 && p3) {
+        editNote.style.display = "block";
+      } else {
+        editNote.style.display = "none";
+      }
+
+      updateProgress();
+    }
+
     function printArtistStatement() {
       const finalDraft = document.getElementById('finalDraft').value;
       const win = window.open('', '_blank');
@@ -194,22 +247,6 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    }
-
-    function updateProgress() {
-      const fields = [
-        document.getElementById('para1').value.trim(),
-        document.getElementById('para2').value.trim(),
-        document.getElementById('para3').value.trim(),
-        document.getElementById('finalDraft').value.trim()
-      ];
-      const filled = fields.filter(val => val.length > 0).length;
-      const percentage = Math.round((filled / fields.length) * 100);
-
-      const bar = document.getElementById('progressBar');
-      const text = document.getElementById('progressText');
-      bar.style.width = percentage + '%';
-      text.textContent = percentage + '% complete';
     }
   </script>
 
