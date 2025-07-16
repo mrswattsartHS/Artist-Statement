@@ -2,269 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Artist Statement Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #333;
+      margin: 0;
+      padding: 0;
+      font-family: 'Patrick Hand', cursive;
+      background: linear-gradient(135deg, #ffccf9, #c1f0f6);
+      color: #444;
       overflow-x: hidden;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: sparkle 20s linear infinite;
     }
+
+    @keyframes sparkle {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
     header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: white;
-      padding: 40px 20px;
       text-align: center;
+      padding: 30px 20px;
+      color: #6a1b9a;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px #fff;
     }
-    section {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px 20px;
-      margin: 30px auto;
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
       border-radius: 20px;
-      max-width: 1000px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
+
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #7c4dff;
     }
-    p {
-      margin-bottom: 25px;
-      text-align: center;
-    }
+
     label {
       display: block;
-      margin-bottom: 20px;
-      font-weight: 600;
+      margin-top: 20px;
+      font-weight: bold;
     }
+
     textarea {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-top: 5px;
-      resize: vertical;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 2px dashed #ba68c8;
+      font-family: 'Patrick Hand', cursive;
+      background: #fff3fc;
     }
-    .print-save-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
+
+    .buttons {
+      text-align: center;
       margin-top: 20px;
     }
-    .print-save-buttons button {
-      background: linear-gradient(135deg, #00b894, #00a085);
-      color: white;
+
+    .buttons button {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      border: none;
       padding: 12px 20px;
-      border: none;
-      border-radius: 25px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .resources {
-      margin-top: 40px;
-    }
-    .resource-embed {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      overflow: hidden;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .resource-embed iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-      display: block;
-    }
-    details summary {
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 30px;
-      font-size: 1.1rem;
-    }
-    .progress-container {
-      margin: 20px auto;
-      max-width: 800px;
-      background: #e0e0e0;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 25px;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      transition: width 0.3s ease;
-    }
-    .progress-text {
-      text-align: center;
-      margin-top: 10px;
-      font-weight: 600;
-    }
-    .edit-note {
-      font-size: 0.95rem;
-      color: #444;
-      margin-top: 10px;
-      padding: 10px;
-      background: #f1f1f1;
-      border-left: 5px solid #764ba2;
-      display: none;
-    }
-    .step-button {
-      display: block;
-      margin: 30px auto;
-      padding: 15px 30px;
+      border-radius: 30px;
       font-size: 1rem;
       font-weight: bold;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      color: #333;
-      border: none;
-      border-radius: 30px;
-      text-align: center;
       cursor: pointer;
-      text-decoration: none;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      margin: 5px;
+      transition: transform 0.2s ease;
     }
-    .step-button:hover {
-      background: linear-gradient(135deg, #fad0c4, #ff9a9e);
-      transform: scale(1.03);
+
+    .buttons button:hover {
+      transform: scale(1.05);
+    }
+
+    .vocab-button {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background: linear-gradient(to right, #a18cd1, #fbc2eb);
+      border-radius: 25px;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1><i class="fas fa-feather-alt"></i> Artist Statement Generator & Organizer</h1>
-    <p>Use this interactive guide to help express your voice and purpose as an artist.</p>
+    ✨ Artist Statement Generator ✨
   </header>
 
-  <section>
-    <h2><i class="fas fa-pencil-alt"></i> Start Writing</h2>
-    <p><strong>Use the prompts below to help organize your thoughts.</strong></p>
+  <div class="container">
+    <h2>Start Writing</h2>
 
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
+    <a class="vocab-button" href="https://docs.google.com/presentation/d/e/2PACX-1vQF0P0B9H8EDcW1J3VeYN48bym-AkT6Ixq0vQ4nUT-blTHEGST7AwR-4L68WeN1Gc2Cmr8Fygs1Mdo4/pub?start=true&loop=true&delayms=3000" target="_blank">Step 2: Vocabulary Help 📚</a>
+
+    <label for="para1">Paragraph I: Why do you create art?</label>
+    <textarea id="para1" rows="3"></textarea>
+
+    <label for="para2">Paragraph II: Describe your style and medium.</label>
+    <textarea id="para2" rows="3"></textarea>
+
+    <label for="para3">Paragraph III: What influences your art?</label>
+    <textarea id="para3" rows="3"></textarea>
+
+    <label for="finalDraft">Final Draft:</label>
+    <textarea id="finalDraft" rows="6"></textarea>
+
+    <div class="buttons">
+      <button onclick="printStatement()">Print Statement 💾</button>
+      <button onclick="saveAsWord()">Save as Word 📄</button>
     </div>
-    <div class="progress-text" id="progressText">0% complete</div>
-
-    <!-- Step 2 Vocabulary Button -->
-    <a href="https://docs.google.com/presentation/d/e/2PACX-1vQF0P0B9H8EDcW1J3VeYN48bym-AkT6Ixq0vQ4nUT-blTHEGST7AwR-4L68WeN1Gc2Cmr8Fygs1Mdo4/pub?start=true&loop=true&delayms=3000"
-       target="_blank" class="step-button">
-      📘 Step 2: Vocabulary Help (Art Terms)
-    </a>
-
-    <form id="artistStatementForm">
-      <label>Paragraph I: Why do you create art? What values or goals guide your work?
-        <textarea rows="4" id="para1" placeholder="I create art because..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
-      </label>
-      <label>Paragraph II: Describe your work, style, medium, or use of the elements and principles.
-        <textarea rows="4" id="para2" placeholder="My artwork typically features..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
-      </label>
-      <label>Paragraph III: What influences or themes appear in your art? Wrap up your statement.
-        <textarea rows="4" id="para3" placeholder="My art is inspired by..." oninput="updateProgress(); autoFillFinalDraft();"></textarea>
-      </label>
-
-      <div class="edit-note" id="editNote">
-        ✏️ Now take a look at what you wrote and revise your final artist statement.
-      </div>
-
-      <label>Final Draft:
-        <textarea rows="8" id="finalDraft" placeholder="Now combine your answers into a full artist statement..." oninput="updateProgress()"></textarea>
-      </label>
-
-      <div class="print-save-buttons">
-        <button type="button" onclick="printArtistStatement()"><i class="fas fa-print"></i> Print Statement</button>
-        <button type="button" onclick="saveArtistStatementAsWord()"><i class="fas fa-file-word"></i> Save as Word</button>
-      </div>
-    </form>
-  </section>
-
-  <section class="resources">
-    <details open>
-      <summary><i class="fas fa-book-open"></i> Additional Resources</summary>
-      <div class="resource-embed">
-        <iframe src="https://drive.google.com/file/d/1BE0VgHEC7dZjcqm7m7chDGm2s7HdHxH3/preview" allowfullscreen></iframe>
-      </div>
-      <div class="resource-embed">
-        <iframe src="https://drive.google.com/file/d/1IYbljbwaxzQhNyYyarbR2s3PoYbYcrpu/preview" allowfullscreen></iframe>
-      </div>
-      <div class="resource-embed">
-        <iframe src="https://drive.google.com/file/d/1bZU7MXT2O22DhVNVrT2YtOTujC4U8JNx/preview?usp=embed_googleplus" allowfullscreen></iframe>
-      </div>
-    </details>
-  </section>
+  </div>
 
   <script>
-    function updateProgress() {
-      const fields = [
-        document.getElementById('para1').value.trim(),
-        document.getElementById('para2').value.trim(),
-        document.getElementById('para3').value.trim(),
-        document.getElementById('finalDraft').value.trim()
-      ];
-      const filled = fields.filter(val => val.length > 0).length;
-      const percentage = Math.round((filled / fields.length) * 100);
-
-      const bar = document.getElementById('progressBar');
-      const text = document.getElementById('progressText');
-      bar.style.width = percentage + '%';
-      text.textContent = percentage + '% complete';
-    }
-
-    function autoFillFinalDraft() {
-      const p1 = document.getElementById('para1').value.trim();
-      const p2 = document.getElementById('para2').value.trim();
-      const p3 = document.getElementById('para3').value.trim();
-      const finalBox = document.getElementById('finalDraft');
-      const editNote = document.getElementById('editNote');
-
-      let combined = "";
-      if (p1) combined += p1 + "\n\n";
-      if (p2) combined += p2 + "\n\n";
-      if (p3) combined += p3;
-
-      finalBox.value = combined;
-
-      if (p1 && p2 && p3) {
-        editNote.style.display = "block";
-      } else {
-        editNote.style.display = "none";
-      }
-
-      updateProgress();
-    }
-
-    function printArtistStatement() {
+    function printStatement() {
       const finalDraft = document.getElementById('finalDraft').value;
       const win = window.open('', '_blank');
-      win.document.write(`
-        <html>
-          <head><title>Artist Statement</title></head>
-          <body style="font-family: sans-serif; padding: 20px;">
-            <h2>Artist Statement</h2>
-            <p>${finalDraft.replace(/\n/g, '<br>')}</p>
-          </body>
-        </html>
-      `);
+      win.document.write(`<html><head><title>Artist Statement</title></head><body><h2>Artist Statement</h2><p>${finalDraft.replace(/\n/g, '<br>')}</p></body></html>`);
       win.document.close();
       win.print();
     }
 
-    function saveArtistStatementAsWord() {
+    function saveAsWord() {
       const text = document.getElementById('finalDraft').value;
       const blob = new Blob([text], { type: 'application/msword' });
       const link = document.createElement('a');
@@ -275,6 +144,5 @@
       document.body.removeChild(link);
     }
   </script>
-
 </body>
 </html>
