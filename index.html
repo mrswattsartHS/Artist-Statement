@@ -122,21 +122,25 @@
 
     <a class="vocab-button" href="https://docs.google.com/presentation/d/e/2PACX-1vQF0P0B9H8EDcW1J3VeYN48bym-AkT6Ixq0vQ4nUT-blTHEGST7AwR-4L68WeN1Gc2Cmr8Fygs1Mdo4/pub?start=true&loop=true&delayms=3000" target="_blank">Step 2: Vocabulary Help 📚</a>
 
-    <label for="para1">Paragraph I: Why do you create art?</label>
+    <label for="para1">Paragraph I: Why do you create art? Not your teacher made you! Why did you pick the objects in your work? Why did you pick these colors? Why did you setup the composition the way you did? Why did you make the choices you made?</label>
     <textarea id="para1" rows="3"></textarea>
 
-    <label for="para2">Paragraph II: Describe your style and medium.</label>
+    <label for="para2">Paragraph II: Describe your style and medium (materials you used).</label>
     <textarea id="para2" rows="3"></textarea>
 
-    <label for="para3">Paragraph III: What influences your art?</label>
+    <label for="para3">Paragraph III: What influenced your art? Reflect on  your work and think what in your life changed your view and creation of your artwork.</label>
     <textarea id="para3" rows="3"></textarea>
+
+    <div class="buttons">
+      <button onclick="combineDraft()">✨ Combine to Final Draft</button>
+    </div>
 
     <label for="finalDraft">Final Draft:</label>
     <textarea id="finalDraft" rows="6"></textarea>
 
     <div class="buttons">
-      <button onclick="printStatement()">Print Statement 💾</button>
-      <button onclick="saveAsWord()">Save as Word 📄</button>
+      <button onclick="printStatement()">🖨️ Print Statement</button>
+      <button onclick="saveAsWord()">💾 Save as Word</button>
     </div>
   </div>
 
@@ -148,12 +152,23 @@
   </div>
 
   <script>
+    function combineDraft() {
+      const p1 = document.getElementById('para1').value.trim();
+      const p2 = document.getElementById('para2').value.trim();
+      const p3 = document.getElementById('para3').value.trim();
+      const combined = `${p1}\n\n${p2}\n\n${p3}`;
+      document.getElementById('finalDraft').value = combined;
+    }
+
     function printStatement() {
       const finalDraft = document.getElementById('finalDraft').value;
-      const win = window.open('', '_blank');
-      win.document.write(`<html><head><title>Artist Statement</title></head><body><h2>Artist Statement</h2><p>${finalDraft.replace(/\n/g, '<br>')}</p></body></html>`);
-      win.document.close();
-      win.print();
+      const printWindow = window.open('', '', 'height=600,width=800');
+      printWindow.document.write('<html><head><title>Print Artist Statement</title></head><body>');
+      printWindow.document.write('<h2>Artist Statement</h2>');
+      printWindow.document.write(`<p style="white-space:pre-line;">${finalDraft}</p>`);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
     }
 
     function saveAsWord() {
